@@ -3,10 +3,12 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask import jsonify, request, render_template
 import math
+from sqlalchemy.engine.url import URL
+import settings
 from project.modules.models import Base, Address, Author, Project, Property_type, Transaction_type, Post, Region
 app = Flask(__name__)
 
-engine = create_engine('postgresql://postgres:fuckyou2810@localhost:5432/real_estate_dev')
+engine = create_engine(URL(**settings.DATABASE))
 Base.metadata.create_all(engine)
 Session = sessionmaker()
 Session.configure(bind=engine)

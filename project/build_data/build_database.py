@@ -8,6 +8,8 @@ import csv
 from importlib import resources
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.engine.url import URL
+from project import settings
 from project.modules.models import Base, Address, Author, Project, Property_type, Transaction_type, Post
 
 
@@ -119,7 +121,7 @@ def main():
         data = get_real_estate_data(csv_filepath)
         real_estate_data = data
 
-    engine = create_engine('postgresql://postgres:fuckyou2810@localhost:5432/real_estate_dev')
+    engine = create_engine(URL(**settings.DATABASE))
     Base.metadata.create_all(engine)
     Session = sessionmaker()
     Session.configure(bind=engine)

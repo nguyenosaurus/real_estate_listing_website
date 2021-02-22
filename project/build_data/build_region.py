@@ -8,10 +8,12 @@ import csv
 from importlib import resources
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.engine.url import URL
+from project import settings
 from project.modules.models import Base, Address, Author, Project, Property_type, Transaction_type, Post, Region
 
 
-def get_real_estate_data(filepath):
+def get_region_data(filepath):
     """
     This function gets the data from the csv file
     """
@@ -21,14 +23,22 @@ def get_real_estate_data(filepath):
         return data
 
 
-def populate_database(session, real_estate_data):
+def populate_database(session, region_data):
     # insert the data
-    for row in real_estate_data:
-
-        region = Region(
-            city = row["city"], district = row["district"], ward = row["ward"]
+    for row in region_data:
+        
+        region = (
+            session.query(Region)
+            .filter(
+                Region.city == row["city"], Region.district == row["district"], Region.ward == row["ward"]
+            )
+            .one_or_none()
         )
-        session.add(region)
+        if region is None:
+            region = Region(
+                city = row["city"], district = row["district"], ward = row["ward"]
+            )
+            session.add(region)
 
         session.commit()
 
@@ -42,15 +52,15 @@ def main():
     with resources.path(
         "project.data", "region.csv"
     ) as csv_filepath:
-        data = get_real_estate_data(csv_filepath)
-        real_estate_data = data
+        data = get_region_data(csv_filepath)
+        region_data = data
 
-    engine = create_engine('postgresql://postgres:fuckyou2810@localhost:5432/real_estate_dev')
+    engine = create_engine(URL(**settings.DATABASE))
     Base.metadata.create_all(engine)
     Session = sessionmaker()
     Session.configure(bind=engine)
     session = Session()
-    populate_database(session, real_estate_data)
+    populate_database(session, region_data)
 
     print("finished")
 
