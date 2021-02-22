@@ -16,3 +16,4 @@ From the main folder take the following steps:
 * Install the project:
   * `cd ../..`
   * `pip install -r requirements.txt`
+  * `python -m pip install -e .`
