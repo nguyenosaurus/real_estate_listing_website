@@ -14,4 +14,5 @@ From the main folder take the following steps:
   * `cd venv/Scripts`
   * `activate`
 * Install the project:
+  * `cd ../..`
   * `pip install -r requirements.txt`
