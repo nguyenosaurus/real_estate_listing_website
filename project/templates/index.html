@@ -1,0 +1,128 @@
+<html>   
+  <head>    
+    <link rel="stylesheet"  
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+    <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon"> 
+    <link rel="stylesheet" href="/static/css/style.css"> 
+  </head>   
+  <body>   
+    <div class="container">   
+      <br>   
+      <div>   
+        <div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label for="ddlProvince">Tỉnh thành</label>
+                    <select id="ddlProvince" class="form-control">
+                        <option value="">--Không chọn--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ddlDistrict">Quận huyện</label>
+                    <select id="ddlDistrict" class="form-control">
+                        <option value="">--Không chọn--</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="ddlWard">Xã phường</label>
+                    <select id="ddlWard" class="form-control">
+                        <option value="">--Không chọn--</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-striped table-condensed    
+                                          table-bordered">   
+          <thead>   
+            <tr>   
+            <th>price</th>
+            <th>price_unit</th>
+            <th>area</th>
+            <th>transaction_type</th>
+            <th>property_type</th>
+            <th>addr_province</th>
+            <th>addr_city</th>
+            <th>addr_district</th>
+            <th>addr_ward</th>
+            <th>addr_street</th>
+            <th>num_bedrooms</th>
+            <th>num_bathrooms</th>
+            <th>project</th>
+            <th>project_size</th>
+            <th>created_date</th>
+            <th>expired_date</th>
+            <th>num_floors</th>
+            <th>floorth</th>
+            <th>direction</th>
+            <th>legal</th>
+            <th>front</th>
+            <th>alley</th>
+            <th>post_author</th>
+            <th>phone_number</th>
+            <th>url</th>  
+            </tr>   
+          </thead>   
+          <tbody>       
+            {% for row in rows %}   
+                  <!-- Display each field of the records.     -->
+                  <tr>
+                  <td>{{row.price}}</td>
+                  <td>{{row.price_unit}}</td>
+                  <td>{{row.area}}</td>
+                  <td>{{row.transaction_type}}</td>
+                  <td>{{row.property_type}}</td>
+                  <td>{{row.addr_province}}</td>
+                  <td>{{row.addr_city}}</td>
+                  <td>{{row.addr_district}}</td>
+                  <td>{{row.addr_ward}}</td>
+                  <td>{{row.addr_street}}</td>
+                  <td>{{row.num_bedrooms}}</td>
+                  <td>{{row.num_bathrooms}}</td>
+                  <td>{{row.project}}</td>
+                  <td>{{row.project_size}}</td>
+                  <td>{{row.created_date}}</td>
+                  <td>{{row.expired_date}}</td>
+                  <td>{{row.num_floors}}</td>
+                  <td>{{row.floorth}}</td>
+                  <td>{{row.direction}}</td>
+                  <td>{{row.legal}}</td>
+                  <td>{{row.front}}</td>
+                  <td>{{row.alley}}</td>
+                  <td>{{row.post_author}}</td>
+                  <td>{{row.phone_number}}</td>
+                  <td>{{row.url}}</td>
+                </tr>
+                {% endfor %}  
+          </tbody>   
+        </table>   
+  
+    <div class="pagination">    
+    </br>        
+        {% if page>=2 %}
+            <a href="{{ url_for('.index' ,page=page-1,province=province,district=district,ward=ward) }}">Prev</a>   
+        {% endif %}  
+                   
+        {%for i in range(page, page + 9)%} 
+            {% if i < total_pages %}
+                {%if i == page%}
+              <a class = 'active' href="{{ url_for('.index' ,page=i,province=province,district=district,ward=ward) }}">{{i}}</a>   
+              {% else %}
+            <a href="{{ url_for('.index' ,page=i,province=province,district=district,ward=ward) }}">{{i}}</a>     
+            {% endif %}
+            {% endif %} 
+            {% endfor %}
+        {% if page < total_pages %}   
+        <a href="{{ url_for('.index' ,page=page+1,province=province,district=district,ward=ward) }}">Next</a>   
+        {% endif %}   
+      </div>  
+    </div>   
+  </div>  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/static/js/getAddress.js"></script>  
+  </body>   
+</html>
