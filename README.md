@@ -8,10 +8,10 @@ pip install virtualenv
 ## Installing The Project
 From the main folder take the following steps:
 
-*Install a Python virtual environment for this project
-  *`python -m venv venv`
-*Activate the virtual environment
-  *`cd venv/Scripts`
-  *`activate`
-*Install the project:
-  *`pip install -r requirements.txt`
+* Install a Python virtual environment for this project
+  * `python -m venv venv`
+* Activate the virtual environment
+  * `cd venv/Scripts`
+  * `activate`
+* Install the project:
+  * `pip install -r requirements.txt`
