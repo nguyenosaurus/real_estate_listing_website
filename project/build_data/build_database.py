@@ -22,6 +22,11 @@ def get_real_estate_data(filepath):
         data = [row for row in csv_reader]
         return data
 
+def normalize_address(address, prefix):
+    res = re.sub('(Huyện |Thành Phố |Thị Xã |Quận |Phường |Thị Trấn |Xã |Tỉnh )','',address.title())
+    if res.isnumeric():
+        return prefix+res
+    return res
 
 def populate_database(session, real_estate_data):
     # insert the data
@@ -38,9 +43,16 @@ def populate_database(session, real_estate_data):
             )
             session.add(author)
 
+        # row['addr_province'] = normalize_address(row['addr_province'], '')
+        # row['addr_city'] = normalize_address(row['addr_city'],'Quận ')
+        # row['addr_district'] = normalize_address(row['addr_district'],'Quận ')
+        # row['addr_ward'] = normalize_address(row['addr_ward'],'Phường ')
         row['addr_province'] = re.sub('(huyện |thành phố |thị xã |quận |phường |thị trấn |xã |tỉnh )','',row['addr_province'].lower())
+        row['addr_city'] = re.sub('(huyện |thành phố |thị xã |quận |phường |thị trấn |xã |tỉnh )','',row['addr_city'].lower())
         row['addr_district'] = re.sub('(huyện |thành phố |thị xã |quận |phường |thị trấn |xã |tỉnh )','',row['addr_district'].lower())
         row['addr_ward'] = re.sub('(huyện |thành phố |thị xã |quận |phường |thị trấn |xã |tỉnh )','',row['addr_ward'].lower())
+        # if row['add_province'].isnumeric():
+
         address = (
             session.query(Address)
             .filter(
