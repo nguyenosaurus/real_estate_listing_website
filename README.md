@@ -17,3 +17,8 @@ From the main folder take the following steps:
   * `cd ../..`
   * `pip install -r requirements.txt`
   * `python -m pip install -e .`
+## Docker
+From the main folder take the following steps:
+* `docker-compose build`
+* `docker-compose up -d`
+* navigate to localhost:5000
