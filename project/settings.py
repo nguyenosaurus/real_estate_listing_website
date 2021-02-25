@@ -1,6 +1,6 @@
 DATABASE = {
     'drivername': 'postgresql',
-    'host': 'localhost',
+    'host': 'host.docker.internal',
     'port': '5432',
     'username': 'postgres',
     'password': '',
