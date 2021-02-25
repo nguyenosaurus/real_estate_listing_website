@@ -74,13 +74,14 @@ def index():
             "num_bedrooms":p.num_bedrooms, "num_bathrooms":p.num_bathrooms, "project":p.project.project,
             "project_size":p.project.project_size, "created_date":p.created_date, "expired_date":p.expired_date,
             "num_floors":p.num_floors, "floorth":p.floorth, "direction":p.direction, "legal":p.legal,
-            "front":p.front, "alley":p.alley, "post_author":p.author.post_author, "phone_number":p.author.phone_number,
+            "front":p.front, "alley":p.alley, "surrounding":p.surrounding, "surrounding_characteristics": p.surrounding_characteristics,
+            "position":p.position, "internal_facility":p.internal_facility,"post_author":p.author.post_author, "phone_number":p.author.phone_number,
             "url":p.url})
     total_pages = math.ceil(total_records / per_page_record)
     if request.args.get("province") and request.args.get("district") and request.args.get("ward"):
-        return render_template("index.html",province=province, district=district, ward=ward, rows = result, total_records = total_records, page = page, total_pages=total_pages)
+        return render_template("index.html",province=province, district=district, ward=ward, rows = result, total_records = total_records, page = page, total_pages=total_pages, project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id)
     else:
-        return render_template("index.html",province="", district="", ward="", rows = result, total_records = total_records, page = page, total_pages=total_pages)
+        return render_template("index.html",province="", district="", ward="", rows = result, total_records = total_records, page = page, total_pages=total_pages, project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id)
 
 @app.route('/province')
 def getProvince():

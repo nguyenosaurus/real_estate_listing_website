@@ -123,20 +123,20 @@
     <div class="pagination">    
     </br>        
         {% if page>=2 %}
-            <a href="{{ url_for('.index' ,page=page-1,province=province,district=district,ward=ward) }}">Prev</a>   
+            <a href="{{ url_for('.index' ,page=page-1,province=province,district=district,ward=ward,project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id) }}">Prev</a>   
         {% endif %}  
                    
         {%for i in range(page, page + 9)%} 
             {% if i < total_pages %}
                 {%if i == page%}
-              <a class = 'active' href="{{ url_for('.index' ,page=i,province=province,district=district,ward=ward) }}">{{i}}</a>   
+              <a class = 'active' href="{{ url_for('.index' ,page=i,province=province,district=district,ward=ward,project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id) }}">{{i}}</a>   
               {% else %}
-            <a href="{{ url_for('.index' ,page=i,province=province,district=district,ward=ward) }}">{{i}}</a>     
+            <a href="{{ url_for('.index' ,page=i,province=province,district=district,ward=ward,project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id) }}">{{i}}</a>     
             {% endif %}
             {% endif %} 
             {% endfor %}
         {% if page < total_pages %}   
-        <a href="{{ url_for('.index' ,page=page+1,province=province,district=district,ward=ward) }}">Next</a>   
+        <a href="{{ url_for('.index' ,page=page+1,province=province,district=district,ward=ward,project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id) }}">Next</a>   
         {% endif %}   
       </div>  
     </div>   

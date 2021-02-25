@@ -18,7 +18,7 @@ def get_real_estate_data(filepath):
     This function gets the data from the csv file
     """
     with open(filepath, encoding='UTF-8') as csvfile:
-        csv_reader = csv.DictReader(csvfile)
+        csv_reader = csv.DictReader(csvfile, escapechar="'")
         data = [row for row in csv_reader]
         return data
 
@@ -108,7 +108,9 @@ def populate_database(session, real_estate_data):
                 num_bedrooms = row["num_bedrooms"], num_bathrooms = row["num_bathrooms"],
                 created_date = row["created_date"], expired_date = row["expired_date"],
                 num_floors = row["num_floors"], floorth = row["floorth"], direction = row["direction"],
-                legal = row["legal"], front = row["front"], alley = row["alley"]
+                legal = row["legal"], front = row["front"], alley = row["alley"], surrounding = row["surrounding"],
+                surrounding_characteristics = row["surrounding_characteristics"], position = row["position"],
+                internal_facility = row["internal_facility"]
             )
             session.add(post)
 
