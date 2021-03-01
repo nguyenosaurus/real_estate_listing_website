@@ -31,7 +31,6 @@ def index():
     project_id = request.args.get("project_id")
     property_type_id = request.args.get("property_type_id")
     transaction_type_id = request.args.get("transaction_type_id")
-    # if request.args.get("province") and request.args.get("district") and request.args.get("ward"):
     cities = ['hồ chí minh', 'hà nội', 'hải phòng', 'cần thơ', 'đà nẵng']
     if province in cities: 
         filter_data = {'addr_city': province, 'addr_district': district, 'addr_ward':ward}
@@ -40,30 +39,11 @@ def index():
         post_data = {key: value for (key, value) in post_data.items() if value}
         res = session.query(Post).filter_by(**post_data).join(Address).filter_by(**filter_data).limit(per_page_record).offset(start_from)
         total_records = session.query(Post).filter_by(**post_data).join(Address).filter_by(**filter_data).count()
-        # res = session.query(Address, Post)\
-        #             .filter(Address.addr_id == Post.addr_id)\
-        #             .filter_by(**filter_data).limit(per_page_record).offset(start_from)
-        # total_records = session.query(Address, Post)\
-        #             .filter(Address.addr_id == Post.addr_id)\
-        #             .filter_by(**filter_data).count()
-        # else:
-        #     res = session.query(Address, Post)\
-        #             .filter(Address.addr_id == Post.addr_id,\
-        #             Address.addr_province == province, Address.addr_city == district, Address.addr_ward == ward).limit(per_page_record).offset(start_from)
-        #     total_records = session.query(Address, Post)\
-        #             .filter(Address.addr_id == Post.addr_id,\
-        #             Address.addr_province == province, Address.addr_city == district, Address.addr_ward == ward).count()
     else:
         filter_data = {'addr_province': province, 'addr_city': district, 'addr_ward':ward}
         filter_data = {key: value for (key, value) in filter_data.items() if value}
         post_data = {'project_id': project_id, 'property_type_id': property_type_id, 'transaction_type_id': transaction_type_id}
         post_data = {key: value for (key, value) in post_data.items() if value}
-        # res = session.query(Address, Post)\
-        #             .filter(Address.addr_id == Post.addr_id)\
-        #             .filter_by(**filter_data).limit(per_page_record).offset(start_from)
-        # total_records = session.query(Address, Post)\
-        #             .filter(Address.addr_id == Post.addr_id)\
-        #             .filter_by(**filter_data).count()
         res = session.query(Post).filter_by(**post_data).join(Address).filter_by(**filter_data).limit(per_page_record).offset(start_from)
         total_records = session.query(Post).filter_by(**post_data).join(Address).filter_by(**filter_data).count()
     result = []
@@ -78,10 +58,8 @@ def index():
             "position":p.position, "internal_facility":p.internal_facility,"post_author":p.author.post_author, "phone_number":p.author.phone_number,
             "url":p.url})
     total_pages = math.ceil(total_records / per_page_record)
-    if request.args.get("province") and request.args.get("district") and request.args.get("ward"):
-        return render_template("index.html",province=province, district=district, ward=ward, rows = result, total_records = total_records, page = page, total_pages=total_pages, project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id)
-    else:
-        return render_template("index.html",province="", district="", ward="", rows = result, total_records = total_records, page = page, total_pages=total_pages, project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id)
+
+    return render_template("index.html",province=province, district=district, ward=ward, rows = result, total_records = total_records, page = page, total_pages=total_pages, project_id=project_id, property_type_id=property_type_id,transaction_type_id=transaction_type_id)
 
 @app.route('/province')
 def getProvince():

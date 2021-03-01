@@ -19,6 +19,6 @@ From the main folder take the following steps:
   * `python -m pip install -e .`
 ## Docker
 From the main folder take the following steps:
-* `docker-compose build`
+* `docker build -t test_web:latest .`
 * `docker-compose up -d`
 * navigate to localhost:5000
